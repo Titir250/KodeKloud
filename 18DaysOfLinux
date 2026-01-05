@@ -1,0 +1,19 @@
+Day 14
+
+Adjust the default runlevel on all App servers in Stratos Datacenter to enable GUI booting by default.
+It's imperative not to initiate a server reboot after completing this task.
+
+[root@stapp01 ~]# sudo systemctl set-default graphical.target
+Removed "/etc/systemd/system/default.target".
+Created symlink /etc/systemd/system/default.target → /usr/lib/systemd/system/graphical.target.
+[root@stapp01 ~]#
+
+[root@stapp02 ~]# systemctl set-default graphical.target
+Removed "/etc/systemd/system/default.target".
+Created symlink /etc/systemd/system/default.target → /usr/lib/systemd/system/graphical.target.
+[root@stapp02 ~]#
+
+[root@stapp03 ~]# systemctl set-default graphical.target
+Removed "/etc/systemd/system/default.target".
+Created symlink /etc/systemd/system/default.target → /usr/lib/systemd/system/graphical.target.
+[root@stapp03 ~]#
