@@ -82,6 +82,8 @@ PermitRootLogin no
 # the setting of "PermitRootLogin without-password".
 [root@stapp01 ~]#
 
+sytemctl restart sshd missed this
+
 
 repeated for stapp02 and stapp03
 
@@ -180,8 +182,10 @@ Jan 09 05:28:48 ststor01.stratos.xfusioncorp.com crond[4502]: (CRON) IN>
 no crontab for root - using an empty one
 crontab: installing new crontab
 [root@ststor01 ~]# sudo crontab -l
-30 21 * * * /home/user/backup.sh
+30 21 * * * /usr/bin/touch test_passed
 [root@ststor01 ~]# 
+
+pasted wrong script name
 
 Task 3
 
@@ -366,6 +370,12 @@ cache  ftp    lib       log       mail         preserve  tmp
 db     games  local     logs.tar  nis          run       yp
 [natasha@ststor01 var]$ 
 
+tar -cvf /home/natasha/logs.tar /var/log
+tar -czvf /home/natasha/logs.tar.gz /var/log
+ls -lh /home/natasha/logs.tar /home/natasha/logs.tar.gz
+
+I created under wrong dir shd create it under /home/natasha/logs.tar and logs.tar.gz.
+
 Task 7
 
 App Server 1, alter the /home/BSD.txt file as per details given below.
@@ -507,13 +517,27 @@ Task 10
 Configure a resource limit (hard limit) for the developers group so that this group cannot exceed 5 logins (maxlogins) on App server 1 in Stratos Datacenter.
 
 
-[root@stapp01 ~]# vi /etc/security/limits.conf
-[root@stapp01 ~]# cat /etc/security/limits.conf | grep developers
- developers      -       maxlogins       5
-[root@stapp01 ~]#
+sudo vi /etc/security/limits.conf
+
+Add this line
 
 
-Task 1,2,6,10 redooooo
+@developers   hard   maxlogins   5
+
+grep pam_limits.so /etc/pam.d/login
+
+expected op
+
+session required pam_limits.so
+
+otherwise add
+
+sudo vi /etc/pam.d/login
+session required pam_limits.so
+
+
+
+
 
 
 
