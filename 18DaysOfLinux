@@ -248,4 +248,275 @@ total 0
 -rw-r--r-- 1 rose rose 0 Jan  9 05:33 test01.txt
 [root@stapp01 beta]#
 
+Task 4
+
+Create a file named index.html under /var/www/html directory on App server 1. Add below line in this file:
+
+
+Welcome to the KKE labs!
+
+
+[root@stapp01 /]# touch /var/www/html/index.html
+[root@stapp01 /]# vi /var/www/html/index.html
+[root@stapp01 /]# cat /var/www/html/index.html
+Welcome to the KKE labs!
+[root@stapp01 /]# 
+
+Task 5
+
+There are some specific requirements related to the permissions of some new directories/files. 
+Create these directories/files and set appropriate permissions as mentioned below:
+
+
+a. Create a directory named /usr/kke_data on App server 1 in Stratos Datacenter.
+
+b. Further, create a file named /usr/kke_data/kke_data.txt and add This is a test file! line in this file.
+
+c. The user owner of the /usr/kke_data directory and its contents should be root.
+
+d. The /usr/kke_data/kke_data.txt file permissions should be 600.
+
+[root@stapp01 /]# touch /var/www/html/index.html
+[root@stapp01 /]# vi /var/www/html/index.html
+[root@stapp01 /]# cat /var/www/html/index.html
+Welcome to the KKE labs!
+[root@stapp01 /]# mkdir -p /usr/kke_data
+[root@stapp01 /]# touch /usr/kke_data/kke_data.txt
+[root@stapp01 /]# vi /usr/kke_data/kke_data.txt
+[root@stapp01 /]# cat /usr/kke_data/kke_data.txt
+This is a test file!
+[root@stapp01 /]# ls -ltr /usr/kke_data
+total 4
+-rw-r--r-- 1 root root 21 Jan  9 05:56 kke_data.txt
+[root@stapp01 /]# ls -ltr /usr/kke_data/kke_data.txt
+-rw-r--r-- 1 root root 21 Jan  9 05:56 /usr/kke_data/kke_data.txt
+[root@stapp01 /]# chmod 600 /usr/kke_data/kke_data.txt
+[root@stapp01 /]# ls -ltr /usr/kke_data/kke_data.txt
+-rw------- 1 root root 21 Jan  9 05:56 /usr/kke_data/kke_data.txt
+[root@stapp01 /]#
+
+Task 6
+
+Create a tar archive named logs.tar (under natasha's home) of /var/log/ directory.
+Now, create a compressed tar archive as well named logs.tar.gz (under natasha's home) of /var/log/ directory.
+
+[natasha@ststor01 var]$ sudo tar cvf logs.tar /var/log/
+[sudo] password for natasha: 
+Sorry, try again.
+[sudo] password for natasha: 
+tar: Removing leading `/' from member names
+/var/log/
+/var/log/anaconda/
+/var/log/anaconda/ks-script-m7bbs9ir.log
+/var/log/anaconda/lvm.log
+/var/log/anaconda/syslog
+/var/log/anaconda/storage.log
+/var/log/anaconda/program.log
+/var/log/anaconda/anaconda.log
+/var/log/anaconda/lorax-packages.log
+/var/log/anaconda/dbus.log
+/var/log/anaconda/ks-script-8tff_vsl.log
+/var/log/anaconda/dnf.librepo.log
+/var/log/anaconda/ks-script-r9ax_ryz.log
+/var/log/anaconda/packaging.log
+/var/log/anaconda/hawkey.log
+/var/log/anaconda/journal.log
+/var/log/lastlog
+/var/log/dnf.log
+/var/log/dnf.librepo.log
+/var/log/dnf.rpm.log
+/var/log/wtmp
+/var/log/hawkey.log
+/var/log/README
+/var/log/private/
+/var/log/btmp
+[natasha@ststor01 var]$
+
+
+[natasha@ststor01 var]$ sudo tar -czvf logs.tar.gz /var/log/
+tar: Removing leading `/' from member names
+/var/log/
+/var/log/anaconda/
+/var/log/anaconda/ks-script-m7bbs9ir.log
+/var/log/anaconda/lvm.log
+/var/log/anaconda/syslog
+/var/log/anaconda/storage.log
+/var/log/anaconda/program.log
+/var/log/anaconda/anaconda.log
+/var/log/anaconda/lorax-packages.log
+/var/log/anaconda/dbus.log
+/var/log/anaconda/ks-script-8tff_vsl.log
+/var/log/anaconda/dnf.librepo.log
+/var/log/anaconda/ks-script-r9ax_ryz.log
+/var/log/anaconda/packaging.log
+/var/log/anaconda/hawkey.log
+/var/log/anaconda/journal.log
+/var/log/lastlog
+/var/log/dnf.log
+/var/log/dnf.librepo.log
+/var/log/dnf.rpm.log
+/var/log/wtmp
+/var/log/hawkey.log
+/var/log/README
+/var/log/private/
+/var/log/btmp
+[natasha@ststor01 var]$ ls
+adm    empty  kerberos  lock      logs.tar.gz  opt       spool
+cache  ftp    lib       log       mail         preserve  tmp
+db     games  local     logs.tar  nis          run       yp
+[natasha@ststor01 var]$ 
+
+Task 7
+
+App Server 1, alter the /home/BSD.txt file as per details given below.
+
+a. Delete all lines containing the word following and save the results in /home/BSD_DELETE.txt file. (Please be aware of case sensitivity)
+
+b. Replace all occurrences of the word from (look for the exact match) with for and save the results in /home/BSD_REPLACE.txt file.
+
+Note: Let's say you are asked to replace the word to with from. In that case, 
+make sure not to alter any words containing the string itself, for example; upto, contributor etc.
+
+[tony@stapp01 ~]$ cd /home
+
+[tony@stapp01 home]$ ls -al BSD.txt
+-rw-r--r-- 1 tony tony 9919 Jan  9 05:17 BSD.txt
+
+[tony@stapp01 home]$ sed '/following/I d' BSD.txt > BSD_DELETE.txt
+
+
+[root@stapp01 home]# cat BSD.txt | wc -l
+169
+[root@stapp01 home]# cat BSD.txt | grep following | wc -l
+24
+[root@stapp01 home]# cat BSD_DELETE.txt | wc -l
+145
+
+sed 's/from/for/gi' BSD.txt > BSD_REPLACE.txt
+
+[root@stapp01 home]# cat BSD.txt | grep -n from
+16:   derived from this software without specific prior written permission.
+44:   derived from this software without specific prior written permission.
+73:   derived from this software without specific prior written permission.
+102:   derived from this software without specific prior written permission.
+131:   derived from this software without specific prior written permission.
+159:   derived from this software without specific prior written permission.
+[root@stapp01 home]# cat BSD_REPLACE.txt | grep -n for
+4:Redistribution and use in source and binary forms, with or without
+8:2. Redistributions in binary form must reproduce the above copyright
+16:   derived for this software without specific prior written permission.
+
+
+Task 8
+
+Install the bind package on all app servers in Stratos Datacenter and start/enable its service.
+
+[root@stapp01 ~]# yum install bind -y
+Last metadata expiration check: 0:37:57 ago on Fri Jan  9 06:15:33 2026.
+Dependencies resolved.
+========================================================================
+ Package              Arch      Version              Repository    Size
+========================================================================
+Installing:
+ bind                 x86_64    32:9.16.23-36.el9    appstream    504 k
+Installing dependencies:
+ bind-dnssec-doc      noarch    32:9.16.23-36.el9    appstream     45 k
+ bind-libs            x86_64    32:9.16.23-36.el9    appstream    1.2 M
+ bind-license         noarch    32:9.16.23-36.el9    appstream     13 k
+
+
+[root@stapp01 ~]# systemctl status named
+○ named.service - Berkeley Internet Name Domain (DNS)
+     Loaded: loaded (/usr/lib/systemd/system/named.service; disabled; preset: disabled)
+     Active: inactive (dead)
+
+Jan 09 06:54:31 stapp01.stratos.xfusioncorp.com systemd[1]: named.service: Collecting.
+[root@stapp01 ~]# systemctl enable named
+Created symlink /etc/systemd/system/multi-user.target.wants/named.service → /usr/lib/systemd/system/named.service.
+[root@stapp01 ~]# systemctl start named
+[root@stapp01 ~]# systemctl status named
+● named.service - Berkeley Internet Name Domain (DNS)
+     Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; preset: disabled)
+     Active: active (running) since Fri 2026-01-09 06:54:58 UTC; 2s ago
+    Process: 5049 ExecStartPre=/bin/bash -c if [ ! "$DISABLE_ZONE_CHECKING" == "yes" ]; then /usr/sbin/named-checkconf -z "$NAMEDCONF"; else echo "Checking of zone files is disabled"; fi (code=exited, status=0/SUCCESS)
+    Process: 5057 ExecStart=/usr/sbin/named -u named -c ${NAMEDCONF} $OPTIONS (code=exited, status=0/SUCCESS)
+   Main PID: 5076 (named)
+      Tasks: 50 (limit: 411434)
+     Memory: 248.3M
+     CGroup: /docker/ffc51baea624b2da1c79228d4088eb01153a4b2f4392802679daa6890ce0eaf6/system.slice/named.service
+             └─5076 /usr/sbin/named -u named -c /etc/named.conf
+
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './NS/IN': 2001:500:1::53#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './DNSKEY/IN': 2001:7fe::53#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './NS/IN': 2001:7fe::53#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './DNSKEY/IN': 2001:500:2d::d#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './NS/IN': 2001:500:2d::d#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './DNSKEY/IN': 2001:dc3::35#53
+Jan 09 06:54:58 stapp01.stratos.xfusioncorp.com named[5076]: address not available resolving './NS/IN': 2001:dc3::35#53
+Jan 09 06:54:59 stapp01.stratos.xfusioncorp.com named[5076]: managed-keys-zone: Initializing automatic trust anchor management for zone '.'; DNSKEY ID 20326 is now trusted, waiving the normal 30-day waiting period.
+Jan 09 06:54:59 stapp01.stratos.xfusioncorp.com named[5076]: managed-keys-zone: Initializing automatic trust anchor management for zone '.'; DNSKEY ID 38696 is now trusted, waiving the normal 30-day waiting period.
+Jan 09 06:54:59 stapp01.stratos.xfusioncorp.com named[5076]: resolver priming query complete
+[root@stapp01 ~]# 
+
+repeat for other 2 app servers
+
+
+Task 9
+
+On our Storage server in Stratos Datacenter we are having some issues where the nfsuser user is holding hundreds of processes, 
+which is degrading the performance of the server. Therefore, we have a requirement to limit its maximum processes. Please set its maximum process limits as below:
+
+a. soft limit = 1025
+
+b. hard_limit = 2024
+
+[nfsuser@ststor01 ~]$ ulimit -a
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) unlimited
+data seg size               (kbytes, -d) unlimited
+scheduling priority                 (-e) 0
+file size                   (blocks, -f) unlimited
+pending signals                     (-i) 257146
+max locked memory           (kbytes, -l) 64
+max memory size             (kbytes, -m) unlimited
+open files                          (-n) 1024
+pipe size                (512 bytes, -p) 8
+POSIX message queues         (bytes, -q) 819200
+real-time priority                  (-r) 0
+stack size                  (kbytes, -s) 8192
+cpu time                   (seconds, -t) unlimited
+max user processes                  (-u) 1048576
+virtual memory              (kbytes, -v) unlimited
+file locks                          (-x) unlimited
+
+root@ststor01 ~]# cat /etc/security/limits.conf | grep nfsuser
+ nfsuser         soft    nproc           1025
+ nfsuser         hard    nproc           2024
+
+[nfsuser@ststor01 ~]$ ulimit -Su
+1025
+[nfsuser@ststor01 ~]$ ulimit -Hu
+2024
+[nfsuser@ststor01 ~]$ 
+
+
+
+
+Task 10
+
+Configure a resource limit (hard limit) for the developers group so that this group cannot exceed 5 logins (maxlogins) on App server 1 in Stratos Datacenter.
+
+
+[root@stapp01 ~]# vi /etc/security/limits.conf
+[root@stapp01 ~]# cat /etc/security/limits.conf | grep developers
+ developers      -       maxlogins       5
+[root@stapp01 ~]#
+
+
+Task 1,2,6,10 redooooo
+
+
+
+
+
 
