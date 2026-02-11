@@ -1,0 +1,27 @@
+The DevOps team established a new Git repository last week, which remains unused at present. However, the Nautilus application development team now requires a copy of this repository on the Storage Server in the Stratos DC. Follow the provided details to clone the repository:
+
+The repository to be cloned is located at /opt/news.git
+
+Clone this Git repository to the /usr/src/kodekloudrepos directory. Perform this task using the natasha user, and ensure that no modifications are made to the repository or existing directories, such as changing permissions or making unauthorized alterations.
+
+
+thor@jumphost ~$ ssh natasha@ststor01
+The authenticity of host 'ststor01 (172.16.238.15)' can't be established.
+ED25519 key fingerprint is SHA256:CTXayTPBOX9q30+of3mMCIbvkkaEs1uD9hhXc5084zI.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ststor01' (ED25519) to the list of known hosts.
+natasha@ststor01's password: 
+[natasha@ststor01 ~]$ 
+
+[natasha@ststor01 ~]$ cd /usr/src
+[natasha@ststor01 src]$ ls -ltr
+total 12
+drwxr-xr-x 2 root    root    4096 Jun 25  2024 kernels
+drwxr-xr-x 2 root    root    4096 Jun 25  2024 debug
+drwxr-xr-x 2 natasha natasha 4096 Feb 11 03:04 kodekloudrepos
+
+[natasha@ststor01 kodekloudrepos]$ git clone /opt/news.git /usr/src/kodekloudrepos/news
+Cloning into repository '/usr/src/kodekloudrepos/news.git'...
+warning: You appear to have cloned an empty repository.
+done.
