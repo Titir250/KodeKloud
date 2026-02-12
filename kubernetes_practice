@@ -1,0 +1,104 @@
+Create a ReplicaSet using nginx image with latest tag (ensure to specify as nginx:latest) and name it nginx-replicaset.
+
+Apply labels: app as nginx_app, type as front-end.
+
+Name the container nginx-container. Ensure the replica count is 4.
+
+
+thor@jumphost ~$ cat nginx-replicaset.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+  labels:
+    app: nginx_app
+    type: front-end
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx_app
+      type: front-end
+  template:
+    metadata:
+      labels:
+        app: nginx_app
+        type: front-end
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+
+thor@jumphost ~$ kubectl apply -f nginx-replicaset.yaml
+replicaset.apps/nginx-replicaset created
+thor@jumphost ~$ kubectl get rs
+NAME               DESIRED   CURRENT   READY   AGE
+nginx-replicaset   4         4         0       9s
+thor@jumphost ~$ kubectl get deploy
+No resources found in default namespace.
+thor@jumphost ~$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-replicaset-b2t2h   1/1     Running   0          20s
+nginx-replicaset-bhr2r   1/1     Running   0          20s
+nginx-replicaset-n8v8g   1/1     Running   0          20s
+nginx-replicaset-zcqtt   1/1     Running   0          20s
+thor@jumphost ~$ kubectl describe pod nginx-replicaset-b2t2h
+Name:             nginx-replicaset-b2t2h
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             kodekloud-control-plane/172.17.0.2
+Start Time:       Thu, 12 Feb 2026 06:07:01 +0000
+Labels:           app=nginx_app
+                  type=front-end
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.5
+IPs:
+  IP:           10.244.0.5
+Controlled By:  ReplicaSet/nginx-replicaset
+Containers:
+  nginx-container:
+    Container ID:   containerd://6b4d7d2fd73a6ff77f182b5f3b9ea7fecf662e47f9e5b4ae741dfd2222464bc2
+    Image:          nginx:latest
+    Image ID:       docker.io/library/nginx@sha256:341bf0f3ce6c5277d6002cf6e1fb0319fa4252add24ab6a0e262e0056d313208
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Thu, 12 Feb 2026 06:07:11 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-z5vt7 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-z5vt7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  34s   default-scheduler  Successfully assigned default/nginx-replicaset-b2t2h to kodekloud-control-plane
+  Normal  Pulling    33s   kubelet            Pulling image "nginx:latest"
+  Normal  Pulled     25s   kubelet            Successfully pulled image "nginx:latest" in 299.839873ms (8.289783807s including waiting)
+  Normal  Created    25s   kubelet            Created container nginx-container
+  Normal  Started    24s   kubelet            Started container nginx-container
+thor@jumphost ~$
+
+
+
+
+
